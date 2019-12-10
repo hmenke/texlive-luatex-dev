@@ -1,0 +1,13 @@
+language: generic
+sudo: required
+services: docker
+os: linux
+script: bash build.sh
+
+addons:
+  apt:
+    packages:
+    - libxml-parser-perl
+    - libxml-xpath-perl
+    - libtext-unidecode-perl
+    - realpath
