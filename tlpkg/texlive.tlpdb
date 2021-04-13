@@ -1,0 +1,103 @@
+name 00texlive.config
+category TLCore
+revision 0
+shortdesc TeX Live network archive option settings
+longdesc This package contains configuration options for the TeX Live
+longdesc archive. If container_split_{doc,src}_files/1 are dependencies,
+longdesc the {doc,src} files are split into separate containers
+longdesc (.tar.xz) during container build time. This has NO effect on
+longdesc the appearance within texlive.tlpdb. It is only on the
+longdesc container level. The container_format/WHATEVER specifies the
+longdesc format, currently "xz" is the only supported value (generating
+longdesc .tar.xz files). release/YYYY specifies the release number as
+longdesc used in the installer. minrelease/ZZZZ specifies the minimum
+longdesc release for which this repository is valid, i.e., a release of
+longdesc ZZZZ or later can theoretically be upgraded. Further
+longdesc information concerning upgrades can be found at
+longdesc http://www.tug.org/texlive/upgrade.html frozen/[01] specifies
+longdesc whether the release has been frozen The default values are
+longdesc taken from TeXLive::TLConfig::TLPDBConfigs hash values at tlpdb
+longdesc creation time but can be overridden here if necessary. For
+longdesc information on the 00texlive prefix see
+longdesc 00texlive.installation(.tlpsrc)
+depend container_format/xz
+depend container_split_doc_files/1
+depend container_split_src_files/1
+depend frozen/0
+depend minrelease/2016
+depend release/2021
+depend revision/2
+
+name 00texlive.installation
+category TLCore
+revision 0
+shortdesc TeX Live configuration settings
+longdesc This package serves on an installed system as configuration
+longdesc file. We have to remember these settings for additional package
+longdesc installation, removal, etc. There are two types here: 1) If the
+longdesc key starts with opt_ this is an option that can be set by the
+longdesc user either at installation time or via tlmgr later. 2) If the
+longdesc key starts with setting_ this value cannot be changed by the
+longdesc user directly with tlmgr, but only by other actions. Currently
+longdesc there are only two settings supported, and the second is only
+longdesc used in unusual cases: 2a) setting_available_architectures
+longdesc lists all available platforms and should be always present 2b)
+longdesc setting_platform *overrides* the auto-detected platform. This
+longdesc value will only be present when you forced a specific
+longdesc architecture with -force-arch to install-tl The value of
+longdesc __MASTER__ for the location field tells the installer to use
+longdesc the present directory itself. For example, the DVD can be
+longdesc mounted anywhere and we want the installer to work. Concerning
+longdesc the 00* names: All packages starting with 00texlive are
+longdesc ``virtual packages'', in the sense that no containers are
+longdesc generated and these packages are never split into .src and .doc
+longdesc sub-packages in the tlpdb.
+depend opt_autobackup:1
+depend opt_backupdir:tlpkg/backups
+depend opt_create_formats:1
+depend opt_desktop_integration:1
+depend opt_file_assocs:1
+depend opt_generate_updmap:0
+depend opt_install_docfiles:1
+depend opt_install_srcfiles:1
+depend opt_location:__MASTER__
+depend opt_post_code:1
+depend opt_sys_bin:/usr/local/bin
+depend opt_sys_info:/usr/local/share/info
+depend opt_sys_man:/usr/local/share/man
+depend opt_w32_multi_user:1
+depend setting_available_architectures:x86_64-linux
+
+name luatex
+category TLCore
+revision 7428
+depend cm
+depend etex
+depend hyph-utf8
+depend hyphen-base
+depend knuth-lib
+depend luatex.ARCH
+depend plain
+depend tex-ini-files
+depend unicode-data
+execute AddFormat name=dviluatex engine=luatex options="dviluatex.ini"   patterns=language.def,language.dat.lua   fmttriggers=cm,etex,hyphen-base,knuth-lib,plain,tex-ini-files,unicode-data,hyph-utf8
+execute AddFormat name=luatex engine=luatex options="luatex.ini"   patterns=language.def,language.dat.lua   fmttriggers=cm,etex,hyphen-base,knuth-lib,plain,tex-ini-files,unicode-data,hyph-utf8
+containersize 12492
+containerchecksum 1a940300e89afe9ae8ab7a09699cdf6e64055fcd6863341e9f758ed6a7f26660b9cebd67707b4f46faa34724340986ef21637a0dcc597c16ad2bf63cbbf9a360
+runfiles size=37
+ texmf-dist/tex/generic/config/luatex-unicode-letters.tex
+ texmf-dist/tex/generic/config/luatexiniconfig.tex
+ texmf-dist/web2c/texmfcnf.lua
+
+name luatex.x86_64-linux
+category TLCore
+revision 7428
+shortdesc x86_64-linux files of luatex
+containersize 5809512
+containerchecksum 712139525d1d8b06e1c37509d79a863a218dbd9bcc1aaed24325b0f092d0347486ce8ddbd149ad0bda89ac2532db6c209a6bf5c76d950a1d32253fe508237ee9
+binfiles arch=x86_64-linux size=6084
+ bin/x86_64-linux/dviluatex
+ bin/x86_64-linux/luatex
+ bin/x86_64-linux/texlua
+ bin/x86_64-linux/texluac
+
